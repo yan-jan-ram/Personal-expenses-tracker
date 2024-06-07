@@ -3,13 +3,13 @@ package com.project.tracker.validator;
 import java.time.LocalDate;
 
 import com.project.tracker.dto.ExpenseDTO;
-import com.project.tracker.exception.ExpenseException;
+import com.project.tracker.exception.InvalidDateException;
 
 public class ExpenseValidator {
 
-	public static void validate(ExpenseDTO expenseDTO) throws ExpenseException {
+	public static void validate(ExpenseDTO expenseDTO) throws InvalidDateException {
 		if (!isValid(expenseDTO.getExpenseDate())) {
-			throw new ExpenseException("validator.INVALID_DATE");
+			throw new InvalidDateException("validator.INVALID_DATE");
 		}
 	}
 	

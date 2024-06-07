@@ -78,6 +78,7 @@ public class ExpenseServiceImpl implements ExpenseService {
 	@Override
 	public ExpenseDTO updateExpenseById(Long expenseId, ExpenseDTO expenseDTO) throws ExpenseException {
 		// TODO Auto-generated method stub
+		ExpenseValidator.validate(expenseDTO);
 		ExpenseEntity expenseEntity = expenseRepository
 				.findById(expenseId)
 				.orElseThrow(() -> new ExpenseException("service.EXPENSE_NOT_FOUND"));

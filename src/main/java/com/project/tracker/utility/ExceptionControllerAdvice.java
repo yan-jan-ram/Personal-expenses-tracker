@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
 import com.project.tracker.exception.CategoryException;
+import com.project.tracker.exception.ExpenseException;
+import com.project.tracker.exception.InvalidDateException;
+
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 
@@ -35,29 +38,37 @@ public class ExceptionControllerAdvice {
 		return new ResponseEntity<ErrorInfo>(errorInfo, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	@ExceptionHandler(CategoryException.class)
-	public ResponseEntity<ErrorInfo> categoryExceptionHandler(CategoryException exception, WebRequest webRequest) {
+	@ExceptionHandler({CategoryException.class, ExpenseException.class})
+	public ResponseEntity<ErrorInfo> categoryExceptionHandler(Exception exception, WebRequest webRequest) {
 		ErrorInfo errorInfo = new ErrorInfo();
 		
-		errorInfo.setErrorCode(HttpStatus.NOT_FOUND.value());
-		errorInfo.setErrorMsg(environment.getProperty(exception.getMessage()));
-		errorInfo.setTimestamp(LocalDateTime.now());
-		errorInfo.setWebRequestDetails(webRequest.getDescription(false));
+		if (exception instanceof CategoryException) {
+			errorInfo.setErrorCode(HttpStatus.NOT_FOUND.value());
+			errorInfo.setErrorMsg(environment.getProperty(exception.getMessage()));
+			errorInfo.setTimestamp(LocalDateTime.now());
+			errorInfo.setWebRequestDetails(webRequest.getDescription(false));
+		}
+		else {
+			errorInfo.setErrorCode(HttpStatus.NOT_FOUND.value());
+			errorInfo.setErrorMsg(environment.getProperty(exception.getMessage()));
+			errorInfo.setTimestamp(LocalDateTime.now());
+			errorInfo.setWebRequestDetails(webRequest.getDescription(false));
+		}
 		
 		return new ResponseEntity<ErrorInfo>(errorInfo, HttpStatus.NOT_FOUND);
 	}
 	
-//	@ExceptionHandler(ExpenseException.class)
-//	public ResponseEntity<ErrorInfo> expenseExceptionHandler(ExpenseException exception, WebRequest webRequest) {
-//		ErrorInfo errorInfo = new ErrorInfo();
-//		
-//		errorInfo.setErrorCode(HttpStatus.NOT_FOUND.value());
-//		errorInfo.setErrorMsg(environment.getProperty(exception.getMessage()));
-//		errorInfo.setTimestamp(LocalDateTime.now());
-//		errorInfo.setWebRequestDetails(webRequest.getDescription(false));
-//		
-//		return new ResponseEntity<ErrorInfo>(errorInfo, HttpStatus.NOT_FOUND);
-//	}
+	@ExceptionHandler(InvalidDateException.class)
+	public ResponseEntity<ErrorInfo> invalidDateExceptionHandler(InvalidDateException exception, WebRequest webRequest) {
+		ErrorInfo errorInfo = new ErrorInfo();
+		
+		errorInfo.setErrorCode(HttpStatus.BAD_REQUEST.value());
+		errorInfo.setErrorMsg(environment.getProperty(exception.getMessage()));
+		errorInfo.setTimestamp(LocalDateTime.now());
+		errorInfo.setWebRequestDetails(webRequest.getDescription(false));
+		
+		return new ResponseEntity<ErrorInfo>(errorInfo, HttpStatus.BAD_REQUEST);
+	}
 	
 	@ExceptionHandler({MethodArgumentNotValidException.class, ConstraintViolationException.class})
 	public ResponseEntity<ErrorInfo> validationExceptionHandler(Exception exception, WebRequest webRequest) {

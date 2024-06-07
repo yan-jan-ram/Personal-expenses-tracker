@@ -27,7 +27,7 @@ public class ExpenseDTO {
 	public static ExpenseEntity prepareExpenseEntity(ExpenseDTO expenseDTO) {
 		ExpenseEntity expenseEntity = new ExpenseEntity();
 		
-		expenseEntity.setExpenseId(expenseDTO.getExpenseId());
+		//expenseEntity.setExpenseId(expenseDTO.getExpenseId());
 		expenseEntity.setAmount(expenseDTO.getAmount());
 		expenseEntity.setExpenseDate(expenseDTO.getExpenseDate());
 		expenseEntity.setCategory(CategoryDTO.prepareCategoryEntity(expenseDTO.getCategory()));

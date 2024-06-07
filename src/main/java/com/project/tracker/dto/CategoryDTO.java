@@ -20,6 +20,7 @@ public class CategoryDTO {
 	public static CategoryEntity prepareCategoryEntity(CategoryDTO categoryDTO) {
 		CategoryEntity categoryEntity = new CategoryEntity();
 		
+		categoryEntity.setCategoryId(categoryDTO.getCategoryId());
 		categoryEntity.setCategoryName(categoryDTO.getCategoryName());
 		
 		return categoryEntity;

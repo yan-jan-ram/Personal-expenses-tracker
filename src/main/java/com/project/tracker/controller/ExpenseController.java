@@ -32,6 +32,7 @@ public class ExpenseController {
 	
 	Environment environment;
 	
+	//http://localhost:8082/api/expenses/create
 	@PostMapping(value = "/create", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<ExpenseDTO> createExpense(@RequestBody @Valid ExpenseDTO expenseDTO) throws ExpenseException {
 		ExpenseDTO expenseDto = expenseService.createExpense(expenseDTO);
@@ -39,6 +40,7 @@ public class ExpenseController {
 		return new ResponseEntity<>(expenseDto, HttpStatus.CREATED);
 	}
 	
+	//http://localhost:8082/api/expenses/bulk
 	@PostMapping(value = "/bulk")
 	public ResponseEntity<List<ExpenseDTO>> createExpenses(@RequestBody @Valid List<ExpenseDTO> expenseDTOs) throws ExpenseException {
 		List<ExpenseDTO> expenseDtos = expenseService.createExpenses(expenseDTOs);
@@ -46,6 +48,7 @@ public class ExpenseController {
 		return new ResponseEntity<>(expenseDtos, HttpStatus.CREATED);
 	}
 	
+	//http://localhost:8082/api/expenses/get/
 	@GetMapping(value = "/get/{id}")
 	public ResponseEntity<ExpenseDTO> getExpenseById(@PathVariable("id") Long expenseId) throws ExpenseException {
 		ExpenseDTO expenseDto = expenseService.getExpenseById(expenseId);
@@ -53,6 +56,7 @@ public class ExpenseController {
 		return new ResponseEntity<>(expenseDto, HttpStatus.OK);
 	}
 	
+	//http://localhost:8082/api/expenses/getAll
 	@GetMapping(value = "/getAll")
 	public ResponseEntity<List<ExpenseDTO>> getAllExpenses() throws ExpenseException {
 		List<ExpenseDTO> expenseDTOs = expenseService.getAllExpenses();
@@ -60,6 +64,7 @@ public class ExpenseController {
 		return new ResponseEntity<>(expenseDTOs, HttpStatus.OK);
 	}
 	
+	//http://localhost:8082/api/expenses/update/
 	@PutMapping(value = "/update/{id}")
 	public ResponseEntity<ExpenseDTO> updateExpenseById(@PathVariable("id") Long expenseId, @RequestBody @Valid ExpenseDTO expenseDTO) throws ExpenseException {
 		ExpenseDTO expenseDto = expenseService.updateExpenseById(expenseId, expenseDTO);
@@ -67,6 +72,7 @@ public class ExpenseController {
 		return new ResponseEntity<>(expenseDto, HttpStatus.OK);
 	}
 	
+	//http://localhost:8082/api/expenses/delete/
 	@DeleteMapping(value = "/delete/{id}")
 	public ResponseEntity<String> deleteExpenseById(@PathVariable("id") Long expenseId) throws ExpenseException {
 		expenseService.deleteExpenseById(expenseId);
