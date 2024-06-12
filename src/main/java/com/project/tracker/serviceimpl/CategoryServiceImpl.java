@@ -24,11 +24,6 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public CategoryDTO createCategory(CategoryDTO categoryDTO) throws CategoryException {
 		// TODO Auto-generated method stub
-//		if (categoryRepository
-//				.findById(categoryDTO.getCategoryId())
-//				.isPresent()) {
-//			throw new CategoryException("service.CATEGORY_ALREADY_EXISTS");
-//		}
 		
 		CategoryEntity categoryEntity = CategoryDTO.prepareCategoryEntity(categoryDTO);
 		CategoryEntity savedEntity = categoryRepository.save(categoryEntity);

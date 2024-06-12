@@ -10,7 +10,6 @@
 	</parent>
 	<groupId>com.project</groupId>
 	<artifactId>personal_expenses_tracker</artifactId>
-	<version>3.3.0</version>
 	<name>personal_expenses_tracker</name>
 	<description>Personal expenses tracker application by Spring boot and swagger</description>
 	<properties>
